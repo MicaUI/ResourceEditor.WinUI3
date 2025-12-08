@@ -1,4 +1,5 @@
 
+using System.Xml.Serialization;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
@@ -12,6 +13,16 @@ namespace RisohEditorWinUI3Blank.UIExtend
 {
     public sealed partial class EditorTab : UserControl
     {
+        public delegate void FileClose(string FileName);
+        public static FileClose? OneFileClose = null;
+
+        public delegate void Click(string FileName);
+        public static Click? OneFileClick = null;
+        public EditorTab(string FileName)
+        {
+            this.InitializeComponent();
+            this.FileName = FileName;
+        }
         public string FileName
         {
             get { return (string)GetValue(FileNameProperty); }
@@ -44,10 +55,14 @@ namespace RisohEditorWinUI3Blank.UIExtend
 
         private void FontIcon_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
+            string GetCloseFileName = this.LFileName.Text;
             if (this.Parent is StackPanel Panel)
             {
                 Panel.Children.Remove(this);
             }
+
+            if (EditorTab.OneFileClose!=null)
+            EditorTab.OneFileClose(GetCloseFileName);
         }
 
         public Color EnterColor = Color.FromArgb(255, 50, 50, 50);
@@ -75,6 +90,11 @@ namespace RisohEditorWinUI3Blank.UIExtend
                 LastEnterBorder.Background = new SolidColorBrush(EnterColor);
 
             ResetColor();
+
+            if (EditorTab.OneFileClick != null)
+            {
+                EditorTab.OneFileClick(this.LFileName.Text);
+            }
         }
 
         public void ResetColor()
