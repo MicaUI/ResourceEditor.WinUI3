@@ -5,6 +5,7 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging; 
 using RisohEditorWinUI3Blank.Models;
+using RisohEditorWinUI3Blank.UIExtend;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -35,6 +36,11 @@ namespace RisohEditorWinUI3Blank
             //ParseCommandLine(args);
 
             InitializeNavigationTree();
+
+            //Use borderless form
+            this.ExtendsContentIntoTitleBar = true;
+            this.SetTitleBar(TitleBar);
+            UIHelper.ApplyDarkStyle(TitleBar);
         }
         #region 暂时保留的内容
 
