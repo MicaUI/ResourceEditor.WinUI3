@@ -40,8 +40,9 @@ namespace RisohEditorWinUI3Blank
             this.SetTitleBar(TitleBar);
             UIHelper.ApplyDarkStyle(TitleBar);
 
-            EditorTab.OneFileClose += AnyFileClose;//当顶部标签被关闭时的事件 Key 就是FileName
-            EditorTab.OneFileClick += AnyFileClick;//当标签被被用户点击时的事件
+
+            Application.Current.Resources["TabViewItemSelectedBackground"] = new SolidColorBrush(UIHelper.TabViewSelectColor);
+
         }
         #region 暂时保留的内容
 
@@ -1416,7 +1417,14 @@ namespace RisohEditorWinUI3Blank
 
         }
 
+        public int Offset = 0;
+        private void Add_Click(object sender, RoutedEventArgs e)
+        {
+            Offset++;
+            string AutoName = $"Test{Offset}";
 
+            Tabs.TabItems.Add(UIHelper.CreatTab(AutoName));
+        }
     }
 
     public enum FileType
