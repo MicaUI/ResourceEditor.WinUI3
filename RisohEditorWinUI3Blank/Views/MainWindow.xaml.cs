@@ -2,6 +2,8 @@ using DevWinUI;
 using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls.Primitives;
+using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging; 
 using RisohEditorWinUI3Blank.Models;
@@ -1418,13 +1420,29 @@ namespace RisohEditorWinUI3Blank
         }
 
         public int Offset = 0;
-        private void Add_Click(object sender, RoutedEventArgs e)
+
+        private void AddTab(TabView sender, object args)
         {
             Offset++;
             string AutoName = $"Test{Offset}";
+            EditorTab Tab = new EditorTab { Header = AutoName, Style = (Style)Application.Current.Resources["EditorTabStyle"] };
+            Tab.Tapped += Tab_Tapped;
 
-            Tabs.TabItems.Add(UIHelper.CreatTab(AutoName));
+            sender.TabItems.Add(Tab);
         }
+
+        private void Tab_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            string? GetKey = ((EditorTab)sender).Header.ToString();
+
+            if (GetKey != null)
+            { 
+            
+            }
+        }
+
+       
+
     }
 
     public enum FileType

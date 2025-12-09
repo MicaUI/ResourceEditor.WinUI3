@@ -1,6 +1,8 @@
+using System.Xml.Linq;
 using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Markup;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Shapes;
@@ -15,36 +17,23 @@ namespace RisohEditorWinUI3Blank.UIExtend
     {
         public EditorTab()
         {
-            this.Header = "Document 0";
-
-            this.HeaderTemplate = CreateHeaderTemplate();
-
             this.Content = new Grid
             {
-                Background = new SolidColorBrush(Color.FromArgb(255,39,39,39)),
+                Background = new SolidColorBrush(Color.FromArgb(255, 39, 39, 39)),
             };
 
             this.Resources = new ResourceDictionary
             {
-                { "TabViewItemHeaderBackgroundSelected", new SolidColorBrush(Color.FromArgb(255,50,50,50)) },
-                { "TabViewItemHeaderBackgroundPointerOver", new SolidColorBrush(Color.FromArgb(255,50,50,50)) }
+                { "TabViewItemHeaderBackgroundSelected", new SolidColorBrush(Color.FromArgb(255, 50, 50, 50)) },
+                { "TabViewItemHeaderBackgroundPointerOver", new SolidColorBrush(Color.FromArgb(255, 50, 50, 50)) }
             };
+
+            this.CloseRequested += EditorTab_CloseRequested;
         }
 
-        private DataTemplate CreateHeaderTemplate()
+        private void EditorTab_CloseRequested(TabViewItem sender, TabViewTabCloseRequestedEventArgs args)
         {
-            var Xaml = @"
-                <DataTemplate xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation'
-                xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'>
-                <StackPanel Orientation='Horizontal' VerticalAlignment='Center'>
-                <Ellipse Height='18' Width='18' StrokeThickness='1.5' Fill='#272727' Stroke='White' Margin='0 0 5 0'/>
-                <TextBlock Text='{Binding}' Margin='5,0,0,0'/>
-                </StackPanel>
-                </DataTemplate>";
-
-            return (DataTemplate)XamlReader.Load(Xaml);
+            ((TabViewListView)sender.Parent).Items.Remove(sender);
         }
     }
-
-  
 }

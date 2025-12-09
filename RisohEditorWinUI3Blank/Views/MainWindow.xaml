@@ -19,7 +19,7 @@
     <!--CustomWin-->
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="41"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
@@ -35,18 +35,14 @@
             <Grid Grid.Row="0" Style="{StaticResource GridColor}">
                 <ScrollView VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Auto">
 
-                    <TabView x:Name="Tabs">
-                        <TabView.TabItems>
-                            <Controls:EditorTab Header="Document 0" />
-                            <Controls:EditorTab Header="Document 1" />
-                        </TabView.TabItems>
+                    <TabView x:Name="Tabs" AddTabButtonClick="AddTab">
                     </TabView>
 
 
                 </ScrollView>
             </Grid>
 
-            <Grid x:Name="RootGrid" Grid.Row="1">
+            <Grid x:Name="RootGrid" Grid.Row="1" Style="{StaticResource GridColor}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="35"/>
                     <RowDefinition Height="50"/>
@@ -57,10 +53,7 @@
                     <ColumnDefinition Width="7*"/>
                 </Grid.ColumnDefinitions>
 
-                <Button Click="Add_Click" Grid.Row="0" VerticalAlignment="Top" TabIndex="0">
-                    TestAdd
-                </Button>
-
+               
 
                 <!-- 左侧：树形目录 -->
                 <muxc:TreeView x:Name="m_treeView" Grid.Row="2" Grid.Column="0" SelectionChanged="m_treeView_SelectionChanged"  ItemInvoked="NavigationTree_ItemInvoked"/>
