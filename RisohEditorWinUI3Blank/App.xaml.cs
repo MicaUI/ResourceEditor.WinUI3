@@ -35,6 +35,7 @@ namespace RisohEditorWinUI3Blank
         public App()
         {
             InitializeComponent();
+            RequestedTheme = ApplicationTheme.Dark;
         }
 
         /// <summary>

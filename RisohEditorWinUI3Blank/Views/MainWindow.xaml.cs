@@ -5,10 +5,9 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging; 
 using RisohEditorWinUI3Blank.Models;
+using RisohEditorWinUI3Blank.UIExtend;
 using System;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -35,8 +34,30 @@ namespace RisohEditorWinUI3Blank
             //ParseCommandLine(args);
 
             InitializeNavigationTree();
+
+            //Use borderless form
+            this.ExtendsContentIntoTitleBar = true;
+            this.SetTitleBar(TitleBar);
+            UIHelper.ApplyDarkStyle(TitleBar);
+
+            EditorTab.OneFileClose += AnyFileClose;//当顶部标签被关闭时的事件 Key 就是FileName
+            EditorTab.OneFileClick += AnyFileClick;//当标签被被用户点击时的事件
         }
         #region 暂时保留的内容
+
+        /// <summary>
+        /// EditorTab close callback
+        /// </summary>
+        /// <param name="FileName"></param>
+        private void AnyFileClose(string FileName)
+        {
+            //在这里 销毁 View
+        }
+
+        private void AnyFileClick(string FileName)
+        {
+            //在这里 执行 View切换逻辑
+        }
 
         private void InitializeNavigationTree()
         {
@@ -360,7 +381,11 @@ namespace RisohEditorWinUI3Blank
                 // 如果需要绝对路径（桌面应用通常可用），可用 file.Path
                 string path = file.Path;
                 // 调用现有加载逻辑
-                DoLoadFile(path);
+                if (DoLoadFile(path))
+                {
+                    string GetFileName = path.Substring(path.LastIndexOf(@"\") + 1) ;
+                    //FileSwitcher.Children.Add(new EditorTab(path,GetFileName));
+                }
             }
         }
 
