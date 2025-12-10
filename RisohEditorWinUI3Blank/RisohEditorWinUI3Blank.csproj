@@ -13,8 +13,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="UIExtend\EditorTab.xaml" />
     <None Remove="UIExtend\WinHeader.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Remove="Themes\Generic.xaml" />
   </ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
@@ -58,12 +60,12 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
-    <Page Update="UIExtend\WinHeader.xaml">
+    <None Update="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
-    </Page>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="UIExtend\EditorTab.xaml">
+    <Page Update="UIExtend\WinHeader.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
